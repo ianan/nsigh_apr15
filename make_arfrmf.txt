@@ -1,0 +1,5 @@
+nuproducts indir=./ instrument=FPMA steminputs=nu20110040001 outdir=./R1FPMA extended=no runmkarf=yes runmkrmf=yes infile=nu20110040001A06_cl.evt bkgextract=no srcregionfile=ds9_R1.reg attfile=./nu20110040001_att.fits hkfile=./nu20110040001A_fpm.hk
+  
+nuproducts indir=./ instrument=FPMB steminputs=nu20110040001 outdir=./R1FPMB extended=no runmkarf=yes runmkrmf=yes infile=nu20110040001B06_cl.evt bkgextract=no srcregionfile=ds9_R1.reg attfile=./nu20110040001_att.fits hkfile=./nu20110040001B_fpm.hk
+
+  
