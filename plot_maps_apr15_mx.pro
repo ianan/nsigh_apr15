@@ -1,9 +1,8 @@
-pro plot_maps_apr15_mx,eid=eid,mosid=mosid,chuid=chuid,dirout=dirout
+pro plot_maps_apr15_mx,eid=eid,mosid=mosid,chuid=chuid
 
   ; For saving it out
   ; shifts, smoothing, combinations can be done in another file
-  if (n_elements(dirout) ne 1) then dirout='~/data/ns_data/obs4_maps/'
-  if (n_elements(mosid) ne 1) then mosid=40;20
+   if (n_elements(mosid) ne 1) then mosid=40;20
   mnm=string(mosid,format='(i2)')
   if (n_elements(chuid) ne 1) then chuid=4
 
