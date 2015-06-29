@@ -10,14 +10,14 @@ Other than these scripts you will need the following (though some parts will wor
   - Some extra IDL scripts used to make the response matrix from *.rmf and *.arf - available here https://lost-contact.mit.edu/afs/physics.wisc.edu/home/craigm/lib/idl/spectral/ and https://lost-contact.mit.edu/afs/physics.wisc.edu/home/craigm/lib/idl/util/
   - IDL (at least version 8 - not tested on earlier ones)
  
-Running batch_do_all.pro will take you through all the steps and each code is documented individually, basically need to do
-  - make_datacube_apr15_mx            
+Running batch_do_all.pro will take you through all the steps and each code is documented individually, basically need to do (after setting mydir to where you have the NuSTAR data, myoutdir to where you want the, possibly big, datacubes to go)
+  - make_datacube_apr15_mx,maindir=mydir,dirout=myoutdir       
     - Turns the eventlist into a datacube (E,x,y)
-  - make_maps_apr15_mx                
+  - make_maps_apr15_mx,dirout=myoutdir              
     - Turns the datacube into maps of >2kev, 2-4 kV and 4-6keV
   - plot_maps_apr15_mx,eid='E2'  
     - Plot one of the maps
-  - make_specs_apr15_mx,fpmid='FPMA'
+  - make_specs_apr15_mx,fpmid='FPMA',dirout=myoutdir 
     - Makes the spectrum for a region from the datacube 
   - Use nuproducts (make_arfmf.txt) to make the *.arf and *.rmf
     - none supplied here 
