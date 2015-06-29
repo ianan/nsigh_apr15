@@ -1,0 +1,6 @@
+If have run nuproducts the resulting arf and rmf directories go here, i.e
+
+rsp/R1FPMA/
+rsp/R1FPMB/
+
+As well as the *RSP.genx made from these *.rmf and *.arf via fit_ns_spec_int.pro.
