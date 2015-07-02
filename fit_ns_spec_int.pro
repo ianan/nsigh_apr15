@@ -53,8 +53,8 @@ pro fit_ns_spec_int,mosid=mosid,fpmid=fpmid,chuid=chuid,regid=regid, $
 
   if keyword_set(ab) then begin
     fpmid='FPMAB'
-    restgen,file='specs/MOS'+mnm+'_FPMA.dat',ss
-    restgen,file='specs/MOS'+mnm+'_FPMB.dat',ssb
+    restgen,file='specs/MOS'+mnm+'_FPMA',ss
+    restgen,file='specs/MOS'+mnm+'_FPMB',ssb
     ; normalise the B spectrum to the A livetime (in secs)
     spectrum=reform(ss.specs)+(ss.lvt*ss.dur)*reform(ssb.specs)/(ssb.lvt*ssb.dur)
     nspec=n_elements(spectrum)
@@ -64,7 +64,7 @@ pro fit_ns_spec_int,mosid=mosid,fpmid=fpmid,chuid=chuid,regid=regid, $
     dur=ss.dur
     lvt=ss.lvt
    endif else begin
-    restgen,file='specs/MOS'+mnm+'_'+fpmid+'.dat',ss
+    restgen,file='specs/MOS'+mnm+'_'+fpmid,ss
     spectrum=reform(ss.specs)
     nspec=n_elements(spectrum)
     sengs=ss.engs
