@@ -62,7 +62,7 @@ pro make_specs_apr15_mx,mosid=mosid,chuid=chuid,fpmid=fpmid,dirout=dirout
     t1:t1,t2:t2,dur:dur,lvt:dc_out.lvtfac,$
     pxs:pxs,xcsp:xcsp,ycsp:ycsp,wid:wid,ids:rnm}
 
-  savegen,file='specs/MOS'+mnm+'_'+fpmid+'.dat',str_out
+  savegen,file='specs/MOS'+mnm+'_'+fpmid,str_out
 
   ; need IDL >8.0 for ct 74
   !p.multi=[0,2,1]
