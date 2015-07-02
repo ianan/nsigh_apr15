@@ -36,7 +36,8 @@ pro make_datacube_apr15_mx,mosid=mosid,chuid=chuid,dirout=dirout,maindir=maindir
   chumask=chm[chuid-1]
   chunam=chmn[chuid-1]
 
-  ; No shifts at the moment
+  ; Assuming centre of fov is Sun Centre
+  ; Shift from this applied later via xshf, yshf
   xc=0.0
   yc=0.0
 
@@ -148,7 +149,7 @@ pro make_datacube_apr15_mx,mosid=mosid,chuid=chuid,dirout=dirout,maindir=maindir
   nengs=n_elements(eid)-1
   ims=intarr(nengs,2*im_width,2*im_width)
 
-  ; Shifts relative to P2 pointing position - as that matches AIA
+  ; Need to shift the pointing ? Maybe up to arcmin off AIA/RHESSI/XRT
   xshf=0. ; arcsec/pix_size
   yshf=0.
   ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
