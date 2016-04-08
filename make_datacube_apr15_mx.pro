@@ -16,6 +16,7 @@ pro make_datacube_apr15_mx,mosid=mosid,chuid=chuid,dirout=dirout,maindir=maindir
 
   ; IGH 17-Jun-2015 - Modified version for one mosiac tile in April 2015
   ; IGH 29-Jun-2015 - Added dirout, maindir options
+  ; IGH 08-Apr-2015 - Removes "hot" pixels and corrects bug in engs before histogram
   ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   ; For saving it out
@@ -51,24 +52,29 @@ pro make_datacube_apr15_mx,mosid=mosid,chuid=chuid,dirout=dirout,maindir=maindir
   evtb = mrdfits(clb_file, 1,evtbh)
 
 
-  ;  ; Before doing anything else need to filter out the "bad" pixels in FPMA
-  ;  ; these were the ones BG had previously identified - caused the "hard knots" in the data
-  ;  ; https://github.com/NuSTAR/nustar_solar/blob/master/solar_mosaic_20141211/combine_events.pro
-  ;
-  ;  use = bytarr(n_elements(evta)) + 1
-  ;  thisdet = where(evta.det_id eq 2)
-  ;  badones = where(evta[thisdet].rawx eq 16 and evta[thisdet].rawy eq 5, nbad)
-  ;  if nbad gt 0 then use[thisdet[badones]]=0
-  ;  badones = where(evta[thisdet].rawx eq 24 and evta[thisdet].rawy eq 22, nbad)
-  ;  if nbad gt 0 then use[thisdet[badones]]=0
-  ;
-  ;  thisdet = where(evta.det_id eq 3)
-  ;  badones = where(evta[thisdet].rawx eq 22 and evta[thisdet].rawy eq 1, nbad)
-  ;  if nbad gt 0 then use[thisdet[badones]]=0
-  ;  badones = where(evta[thisdet].rawx eq 15 and evta[thisdet].rawy eq 3, nbad)
-  ;  if nbad gt 0 then use[thisdet[badones]]=0
-  ;
-  ;  evta=evta[where(use)]
+  ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ; Before doing anything else need to filter out the "bad"/"hot" pixels in FPMA
+  ; these are manually found in test_evtlst_apr15.pro and mostly different from the Nov15 ones
+
+  use = bytarr(n_elements(evta)) + 1
+  thisdet = where(evta.det_id eq 2)
+  badones = where(evta[thisdet].rawx eq 16 and evta[thisdet].rawy eq 5, nbad)
+  if nbad gt 0 then use[thisdet[badones]]=0
+  badones = where(evta[thisdet].rawx eq 8 and evta[thisdet].rawy eq 22, nbad)
+  if nbad gt 0 then use[thisdet[badones]]=0
+
+  thisdet = where(evta.det_id eq 3)
+  badones = where(evta[thisdet].rawx eq 16 and evta[thisdet].rawy eq 11, nbad)
+  if nbad gt 0 then use[thisdet[badones]]=0
+  badones = where(evta[thisdet].rawx eq 0 and evta[thisdet].rawy eq 16, nbad)
+  if nbad gt 0 then use[thisdet[badones]]=0
+  badones = where(evta[thisdet].rawx eq 10 and evta[thisdet].rawy eq 1, nbad)
+  if nbad gt 0 then use[thisdet[badones]]=0
+  badones = where(evta[thisdet].rawx eq 10 and evta[thisdet].rawy eq 7, nbad)
+  if nbad gt 0 then use[thisdet[badones]]=0
+  
+  evta=evta[where(use)]
+
 
   ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ; Doing it in just one CHU so can filter out other CHU as well
@@ -155,7 +161,7 @@ pro make_datacube_apr15_mx,mosid=mosid,chuid=chuid,dirout=dirout,maindir=maindir
   ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ; Do FPMA
 
-  engs=a_engs
+  engs=1.6+0.04*evta.pi
   evtx=evta.x-xshf
   evty=evta.y-yshf
 
@@ -211,7 +217,7 @@ pro make_datacube_apr15_mx,mosid=mosid,chuid=chuid,dirout=dirout,maindir=maindir
   ; Do FPMB
 
   ims=intarr(nengs,1688,1688)
-  engs=b_engs
+  engs=1.6+0.04*evtb.pi
 
   evtx=evtb.x-xshf
   evty=evtb.y-yshf
